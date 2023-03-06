@@ -49,5 +49,15 @@ pixel_data = {
     "quantity": "10"
 }
 
-response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+# response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+# print(response.text)
+
+# TODO #5: Update pixel value
+update_endpoint = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}/{today.strftime('%Y%m%d')}"
+
+updated_pixel_data = {
+    "quantity": "60"
+}
+
+response = requests.put(url=update_endpoint, json=updated_pixel_data, headers=headers)
 print(response.text)
