@@ -1,8 +1,10 @@
 import requests
+from datetime import datetime
 
 USERNAME = "adrian15"
 TOKEN = "seri9832nmKAW"
 PIXELA_ENDPOINT = "https://pixe.la/v1/users"
+GRAPH_ID = "graph1"
 
 user_params = {
     "token": TOKEN,
@@ -29,11 +31,23 @@ headers = {
     "X-USER-TOKEN": TOKEN
 }
 
-response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
-print(response.text)
+# Graph already created
+# response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
+# print(response.text)
 
 # TODO #3: Get the graph
 # View graph: https://pixe.la/v1/users/adrian15/graphs/graph1.html
 
-# TODO #4: Post value to the graph
+# Create pixel
+pixel_creation_endpoint = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}"
 
+# TODO #4: Post value to the graph
+today = datetime.now()
+
+pixel_data = {
+    "date": today.strftime("%Y%m%d"),
+    "quantity": "10"
+}
+
+response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
+print(response.text)
